@@ -10,6 +10,16 @@ from openai import OpenAI
 import concurrent.futures
 from functools import partial
 
+
+
+client = OpenAI(
+         base_url={{api_url}},
+         api_key={{api_token}}
+)
+
+
+
+
 class NumpyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
@@ -24,16 +34,16 @@ def fetch_response_openai(llm, model_name, max_tokens, temp, prompt):
         for p in prompt:
             p["role"] = "user"
         
-        response = llm.chat.completions.create(
-            model=model_name,
+        response = client.chat.completions.create(
+            model="tgi",
             messages=prompt,
             n=1,
             temperature=1, # has to be 1
             max_completion_tokens=max_tokens 
         )
     else:
-        response = llm.chat.completions.create(
-            model=model_name,
+        response = client.chat.completions.create(
+            model="tgi",
             messages=prompt,
             n=1,
             temperature=temp,
