@@ -9,12 +9,17 @@ from util.model_utils import *
 from openai import OpenAI
 import concurrent.futures
 from functools import partial
+import os
 
+
+## Variables de entorno mias --
+api_url = os.getenv('API_URL')
+api_token = os.getenv('API_TOKEN')
 
 
 client = OpenAI(
-         base_url={{api_url}},
-         api_key={{api_token}}
+         base_url=api_url,
+         api_key=api_token
 )
 
 
